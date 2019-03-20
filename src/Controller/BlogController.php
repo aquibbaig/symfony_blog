@@ -53,4 +53,40 @@ class BlogController extends AbstractController
             'entryLimit' => self::POST_LIMIT
         ]);
     }
+
+    /**
+     * @Route("/entry/{slug}", name="entry")
+     * @param slug
+     */
+    public function entryAction($slug)
+    {
+        $blogPost = $this->blogPostRepository->findOneBySlug($slug);
+
+        if (!$blogPost) {
+            $this->addFlash('error', 'Unable to find entry!');
+
+            return $this->redirectToRoute('entries');
+        }
+
+        return $this->render('blog/entry.html.twig', array(
+            'blogPost' => $blogPost
+        ));
+    }
+
+    /**
+     * @Route("/author/{name}", name="author")
+     */
+    public function authorAction($name)
+    {
+        $author = $this->authorRepository->findOneByUsername($name);
+
+        if (!$author) {
+            $this->addFlash('error', 'Unable to find author!');
+            return $this->redirectToRoute('entries');
+        }
+
+        return $this->render('blog/author.html.twig', [
+            'author' => $author
+        ]);
+    }
 }
