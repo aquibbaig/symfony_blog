@@ -11,6 +11,9 @@ doctrine:
             type: service
             id: doctrine.result_cache_provider
 
+dbal:
+    url: '%env(resolve:CLEARDB_DATABASE_URL)%'
+
 services:
     doctrine.result_cache_provider:
         class: Symfony\Component\Cache\DoctrineProvider
