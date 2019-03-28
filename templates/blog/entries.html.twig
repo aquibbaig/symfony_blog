@@ -31,7 +31,7 @@
                                 Unknown Author
                             {% endif %}
                         </p>
-                        {{ firstParagraph|raw }}<br />
+                        {{ firstParagraph|raw|markdown}}<br />
                         <a href="{{ path('entry', {'slug': blogPost.slug}) }}">Read more</a>
                     </div>
                 {% else %}

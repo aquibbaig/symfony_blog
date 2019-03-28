@@ -14,6 +14,9 @@ use App\Form\AuthorFormType;
 use App\Entity\BlogPost;
 use App\Form\EntryFormType;
 
+
+use Knp\Bundle\MarkdownBundle\MarkdownParserInterface;
+
 /**
  * @Route("/admin")
  */
@@ -78,7 +81,7 @@ class AdminController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function createEntryAction(Request $request)
+    public function createEntryAction(Request $request, MarkdownParserInterface $parser)
     {
         $blogPost = new BlogPost();
 
@@ -90,6 +93,8 @@ class AdminController extends AbstractController
 
         // Check is valid
         if ($form->isSubmitted() && $form->isValid()) {
+            $parsedData = $parser->transformMarkdown($form->getData()->getDescription());
+            $blogPost->setDescription($parsedData);
             $this->entityManager->persist($blogPost);
             $this->entityManager->flush($blogPost);
 

@@ -19,10 +19,10 @@
                         </a>
                     </p>
                     <h3>Description:</h3>
-                    <p>{{ blogPost.description|raw }}</p>
+                    <p>{{ blogPost.description|raw|markdown }}</p>
 
                     <h3>Body:</h3>
-                    <p>{{ blogPost.body|raw }}</p>
+                    <p>{{ blogPost.body|raw|markdown }}</p>
                 </div>
             </div>
         </div>
